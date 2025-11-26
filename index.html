@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Коммерческий ЦОД на энергетических объектах | АО «Россети Кубань»</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1a237e;
+      --secondary-color: #3949ab;
+      --accent-color: #00acc1;
+      --text-light: #ffffff;
+      --text-muted: #9ea7bf;
+      --text-dark: #212121;
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.6);
+      --radius-lg: 20px;
+      --transition-fast: 0.2s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0, 172, 193, 0.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(57, 73, 171, 0.35), transparent 55%),
+        #020617;
+      color: var(--text-light);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 32px 24px 72px;
+      }
+    }
+
+    /* Декоративная "электросеть" в шапке */
+    .electric-grid {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .electric-line {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(0, 172, 193, 0.9), transparent);
+      filter: drop-shadow(0 0 8px rgba(0, 172, 193, 0.7));
+      animation: electric-move 8s linear infinite;
+    }
+
+    .electric-line:nth-child(1) { top: 15%; animation-delay: 0s; }
+    .electric-line:nth-child(2) { top: 45%; animation-delay: 2s; }
+    .electric-line:nth-child(3) { top: 75%; animation-delay: 4s; }
+
+    @keyframes electric-move {
+      0% { transform: translateX(-10%); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateX(10%); opacity: 0; }
+    }
+
+    header {
+      position: relative;
+      padding: 32px 20px 32px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(0, 172, 193, 0.15), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(57, 73, 171, 0.25), transparent 55%),
+        rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      position: relative;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #00e5ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(0, 229, 255, 0.4);
+    }
+
+    header p {
+      position: relative;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 780px;
+    }
+
+    main {
+      margin-top: 24px;
+    }
+
+    .intro {
+      position: relative;
+      margin-bottom: 36px;
+      padding: 24px 20px 24px;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .intro .definition h3 {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+
+    .intro .definition p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .intro strong {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .intro > p {
+      margin-top: 16px;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .intro-list {
+      margin-top: 18px;
+      padding-left: 20px;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      font-size: 0.94rem;
+      color: var(--text-muted);
+    }
+
+    .intro-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .intro-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 8px rgba(0, 172, 193, 0.9);
+    }
+
+    @media (min-width: 768px) {
+      .intro {
+        padding: 28px 24px 26px;
+      }
+      .intro-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: radial-gradient(circle at top left, rgba(0, 172, 193, 0.16), transparent 55%),
+                  rgba(15, 23, 42, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      padding: 18px 18px 18px;
+      overflow: hidden;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        translate var(--transition-fast);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(0, 172, 193, 0.22), transparent 65%),
+        radial-gradient(circle at bottom, rgba(57, 73, 171, 0.18), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 45px rgba(0, 0, 0, 0.9);
+      border-color: rgba(125, 211, 252, 0.7);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e0f7fa, #00acc1);
+      color: #001219;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
+                  0 8px 18px rgba(0, 172, 193, 0.6);
+      margin-bottom: 4px;
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 32px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    footer span {
+      opacity: 0.9;
+    }
+
+    /* FAB: плавающие круглые кнопки */
+    .fab {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+      z-index: 1000;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+      backdrop-filter: saturate(1.2);
+    }
+
+    .fab:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+      filter: brightness(1.05);
+    }
+
+    #fab-back {
+      bottom: calc(94px + env(safe-area-inset-bottom));
+    }
+
+    #fab-top {
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px) scale(0.9);
+    }
+
+    #fab-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+      }
+      .card,
+      .fab,
+      #fab-top {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FAB: к шаблонам документов и наверх -->
+  <a href="templates.html" class="fab" id="fab-back" title="К шаблонам документов">
+    DOC
+  </a>
+  <button class="fab" id="fab-top" title="Наверх" aria-label="Наверх">
+    ↑
+  </button>
+
+  <div class="page">
+    <header>
+      <div class="electric-grid">
+        <div class="electric-line"></div>
+        <div class="electric-line"></div>
+        <div class="electric-line"></div>
+      </div>
+      <h1>Центр обработки данных АО «Россети Кубань»</h1>
+      <p>
+        Проект строительства коммерческого центра обработки данных площадью более 1000 м²
+        и мощностью свыше 1,5 МВт на базе энергетической инфраструктуры АО «Россети Кубань»
+        с питанием от двух независимых линий 110 кВ, резервированием по схеме N+1
+        и полной готовностью под требования «закона Яровой» и корпоративных облачных сервисов.
+      </p>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="definition">
+          <h3>Что такое коммерческий ЦОД?</h3>
+          <p>
+            <strong>Центр обработки данных (ЦОД)</strong> — это инженерно защищённый комплекс
+            с серверными залами, системами электроснабжения, охлаждения, связи и безопасности,
+            обеспечивающий круглосуточную работу критически важных IT-сервисов клиентов.
+          </p>
+        </div>
+        <p>
+          Проектируемый коммерческий ЦОД АО «Россети Кубань» — дата-центр уровня надёжности,
+          соответствующего Tier III, размещённый на территории энергетического объекта
+          и питаемый от двух независимых линий 110 кВ. Инфраструктура ИБП и дизель-генераторов
+          обеспечивает непрерывную работу сервисов хранения данных по «закону Яровой»,
+          облачных платформ, систем операторов связи, банков, государственных и корпоративных клиентов.
+        </p>
+        <ul class="intro-list">
+          <li>Площадь серверных залов и инженерных помещений: ≥ 1 000 м².</li>
+          <li>Расчётная IT-нагрузка: ≥ 1,5 МВт с возможностью масштабирования.</li>
+          <li>Питание от двух независимых линий 110 кВ, АВР и резервирование по схеме N+1.</li>
+          <li>Непрерывное электроснабжение через ИБП и дизель-генераторы.</li>
+          <li>Оценочный объём инвестиций: ~1,5 млрд руб. по энергосервисному контракту (20 % выручки — АО «Россети Кубань», 80 % — инвестор).</li>
+          <li>Наличие необходимых лицензий (Роскомнадзор, ФСТЭК, ФСБ) и выполнение требований «закона Яровой».</li>
+        </ul>
+      </section>
+
+      <div class="cards-grid">
+        <a class="card" href="glossary.html">
+          <div class="card-content">
+            <div class="card-number">1</div>
+            <h3>Термины и сокращения ЦОД</h3>
+            <p>
+              Справочник по основным понятиям: Tier-уровни, SLA, colocation, hosting, IaaS, PaaS,
+              требования «закона Яровой» и энергетического сервиса.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="roadmap.html">
+          <div class="card-content">
+            <div class="card-number">2</div>
+            <h3>Дорожная карта проекта ЦОД</h3>
+            <p>
+              Детальный поэтапный план от предпроектного обоснования и ТЭО до ввода ЦОД в эксплуатацию
+              и выхода на проектную загрузку стойко-мест.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="templates.html">
+          <div class="card-content">
+            <div class="card-number">3</div>
+            <h3>Шаблоны документов</h3>
+            <p>
+              Набор шаблонов: энергосервисный контракт, соглашения с инвестором и клиентами,
+              регламенты эксплуатации, чек-листы для служб эксплуатации и ИБ.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="pricing.html">
+          <div class="card-content">
+            <div class="card-number">4</div>
+            <h3>Тарифы и услуги ЦОД</h3>
+            <p>
+              Актуальные тарифы на colocation (стойка, юнит, клетка), услуги хранения по «закону Яровой»,
+              IaaS, резервные площадки, сетевые сервисы и услуги удалённых рук.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="substations.html">
+          <div class="card-content">
+            <div class="card-number">5</div>
+            <h3>Площадка и энергетика</h3>
+            <p>
+              Описание площадки ЦОД, схема электроснабжения от двух линий 110 кВ, подключение к сети
+              АО «Россети Кубань», резервирование инженерных систем и варианты масштабирования мощности.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="business-plan.html">
+          <div class="card-content">
+            <div class="card-number">6</div>
+            <h3>Бизнес-план ЦОД</h3>
+            <p>
+              Финансово-экономическая модель проекта с учётом энергосервисного контракта 20/80,
+              предварительных договорённостей с Яндекс, VK, почтовыми сервисами, операторами связи
+              и оценкой срока окупаемости инвестиций.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="requirements.html">
+          <div class="card-content">
+            <div class="card-number">7</div>
+            <h3>Требования к ЦОД</h3>
+            <p>
+              Комплекс технических, эксплуатационных и регуляторных требований к зданию,
+              инженерной инфраструктуре, системам безопасности, лицензированию и соответствию
+              отраслевым стандартам.
+            </p>
+          </div>
+        </a>
+
+        <a class="card" href="contract.html">
+          <div class="card-content">
+            <div class="card-number">8</div>
+            <h3>Правовая и финансовая модель</h3>
+            <p>
+              Структура энергосервисного контракта, распределение рисков и доходов между
+              АО «Россети Кубань» и инвестором, требования к лицензиям и договорам с клиентами,
+              варианты структурирования денежных потоков.
+            </p>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <span>© 2025 АО «Россети Кубань». Проект коммерческого ЦОД на энергетических объектах.</span>
+    </footer>
+  </div>
+
+  <script>
+    // Плавный скролл наверх и отображение FAB "Наверх"
+    (function () {
+      const fabTop = document.getElementById("fab-top");
+
+      function onScroll() {
+        if (window.scrollY > 200) {
+          fabTop.classList.add("show");
+        } else {
+          fabTop.classList.remove("show");
+        }
+      }
+
+      window.addEventListener("scroll", onScroll);
+
+      fabTop.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
