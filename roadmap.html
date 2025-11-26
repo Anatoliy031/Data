@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дорожная карта проекта ЦОД | АО «Россети Кубань»</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #1a237e;
+      --secondary-color: #3949ab;
+      --accent-color: #00acc1;
+      --text-light: #ffffff;
+      --text-muted: #9ea7bf;
+      --bg-dark: #020617;
+      --bg-card: #0f172a;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --radius-lg: 20px;
+      --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.7);
+      --transition-fast: 0.2s ease;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0, 172, 193, 0.2), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(57, 73, 171, 0.35), transparent 55%),
+        var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    @media (min-width: 768px) {
+      .page {
+        padding: 32px 24px 72px;
+      }
+    }
+
+    header {
+      position: relative;
+      padding: 28px 18px 24px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(0, 172, 193, 0.18), transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(57, 73, 171, 0.25), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.12), transparent 60%),
+        radial-gradient(circle at 90% 0%, rgba(129, 140, 248, 0.18), transparent 60%);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    header > * {
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(10px);
+      transition:
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .back-link span.icon {
+      font-size: 1.05rem;
+    }
+
+    .back-link:hover {
+      color: #e5f6ff;
+      border-color: rgba(125, 211, 252, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
+    }
+
+    header h1 {
+      font-size: clamp(1.85rem, 3.2vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #00e5ff 60%, #7c4dff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(0, 229, 255, 0.45);
+    }
+
+    header p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 820px;
+    }
+
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e0f7fa, #00acc1);
+      box-shadow: 0 0 10px rgba(0, 172, 193, 0.8);
+    }
+
+    main {
+      margin-top: 10px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+      padding: 18px 16px 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding: 20px 20px 18px;
+      }
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title span.badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(125, 211, 252, 0.9);
+      color: #e0faff;
+      background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.5), rgba(15, 23, 42, 0.9));
+    }
+
+    .section p {
+      font-size: 0.94rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .summary-item {
+      padding: 10px 10px 10px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.8);
+    }
+
+    .summary-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .summary-value {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .summary-note {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 12px;
+      padding-left: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        rgba(56, 189, 248, 0.8),
+        rgba(129, 140, 248, 0.6)
+      );
+      opacity: 0.9;
+    }
+
+    .stage {
+      position: relative;
+      margin-left: 10px;
+      padding: 12px 12px 12px 26px;
+      border-radius: 16px;
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.18), transparent 65%),
+                  rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .stage::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      top: 16px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 3px solid #020617;
+      background: radial-gradient(circle at 30% 30%, #e0f7fa, #00acc1);
+      box-shadow:
+        0 0 0 2px rgba(56, 189, 248, 0.75),
+        0 0 14px rgba(56, 189, 248, 0.95);
+    }
+
+    .stage-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .stage-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .stage-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .stage-chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .stage-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .stage-body ul {
+      margin-top: 4px;
+      padding-left: 16px;
+      list-style: none;
+    }
+
+    .stage-body li {
+      position: relative;
+      margin-bottom: 2px;
+      padding-left: 10px;
+    }
+
+    .stage-body li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .stage-highlight {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: #e0faff;
+    }
+
+    .stage-highlight strong {
+      color: #7dd3fc;
+    }
+
+    .phase-group-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #e0f2fe;
+    }
+
+    /* Risk & milestone lists */
+    .list {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .list-item {
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .list-item::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--accent-color);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #e0f7fa, #00acc1);
+    }
+
+    footer {
+      margin-top: 28px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    /* Floating buttons */
+    .fab {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+      z-index: 1000;
+      cursor: pointer;
+      transition:
+        transform var(--transition-fast),
+        opacity var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+      backdrop-filter: saturate(1.2);
+    }
+
+    .fab:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+      filter: brightness(1.05);
+    }
+
+    #fab-top {
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(6px) scale(0.9);
+    }
+
+    #fab-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+      }
+      .fab,
+      #fab-top {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Кнопка наверх -->
+  <button class="fab" id="fab-top" title="Наверх" aria-label="Наверх">
+    ↑
+  </button>
+
+  <div class="page">
+    <header>
+      <div class="header-top">
+        <a href="index.html" class="back-link">
+          <span class="icon">←</span>
+          <span>На главную</span>
+        </a>
+      </div>
+      <h1>Дорожная карта проекта ЦОД</h1>
+      <p>
+        Поэтапный план реализации коммерческого ЦОД на базе объектов АО «Россети Кубань»
+        стоимостью около 1,5 млрд руб. по энергосервисному контракту: от первого
+        обоснования спроса у Яндекса, VK, почтовых сервисов и операторов связи до
+        выхода на проектную мощность более 1,5 МВт и заполнения серверных залов.
+      </p>
+      <div class="header-tags">
+        <div class="tag">
+          <span class="tag-dot"></span>
+          <span>Tier III / N+1</span>
+        </div>
+        <div class="tag">
+          <span class="tag-dot"></span>
+          <span>Энергосервисный контракт 20% / 80%</span>
+        </div>
+        <div class="tag">
+          <span class="tag-dot"></span>
+          <span>Площадь ЦОД ≥ 1000 м²</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Общее резюме проекта -->
+      <section class="section">
+        <div class="section-title">
+          <span>Ключевые параметры проекта</span>
+          <span class="badge">Сводка</span>
+        </div>
+        <p>
+          Базовая конфигурация: коммерческий ЦОД уровня надёжности, соответствующего Tier III,
+          с питанием от двух независимых линий 110 кВ, резервированием по схеме N+1, системой
+          ИБП и дизель-генераторами, рассчитанный на размещение оборудования для выполнения
+          требований «закона Яровой», а также корпоративных и облачных сервисов клиентов.
+        </p>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="summary-label">Инвестиции</div>
+            <div class="summary-value">≈ 1,5 млрд руб.</div>
+            <div class="summary-note">
+              Финансирование за счёт инвестора, энергосервисный контракт: 20 % потоков —
+              АО «Россети Кубань», 80 % — инвестор.
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Масштаб ЦОД</div>
+            <div class="summary-value">≥ 1000 м² / ≥ 1,5 МВт</div>
+            <div class="summary-note">
+              Серверные залы, инженерные помещения, зоны хранения по «закону Яровой»,
+              возможности расширения мощности.
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Питание и резервирование</div>
+            <div class="summary-value">2×110 кВ, N+1</div>
+            <div class="summary-note">
+              Два независимых ввода 110 кВ, ИБП, ДГУ, резервирование ключевых систем
+              по схеме N+1.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Дорожная карта -->
+      <section class="section">
+        <div class="section-title">
+          <span>Этапы реализации проекта</span>
+          <span class="badge">Дорожная карта</span>
+        </div>
+        <p>
+          Дорожная карта условно разделена на блоки: подготовка и обоснование спроса,
+          структурирование энергосервисной модели, проектирование и строительство,
+          лицензирование и запуск коммерческих услуг ЦОД для внешних клиентов.
+        </p>
+
+        <div class="timeline">
+          <!-- Этап 0 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 0. Инициация и гипотеза (0–2 месяца)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: АО «Россети Кубань»</span>
+                <span class="stage-chip">Соисполнители: Инвестор, профильные департаменты</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Формулирование цели проекта ЦОД и базовых параметров (мощность, площадь, уровень надёжности).</li>
+                <li>Сбор исходных внутренних ограничений (площадки, ПС 110 кВ, градостроительные и земельные ограничения).</li>
+                <li>Первичный перечень целевых клиентов: Яндекс, VK, крупные почтовые сервисы, федеральные и региональные операторы связи, банки, госсектор.</li>
+                <li>Определение возможных сценариев: ЦОД под «закон Яровой» операторов связи, смешанная модель (Яровая + облако + корпоративные сервисы).</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: концептуальная записка по проекту ЦОД и решение руководства АО «Россети Кубань» о запуске предпроектной стадии.
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 1 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 1. Анализ спроса и предварительные договоры (2–5 месяцев)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор</span>
+                <span class="stage-chip">Соисполнители: АО «Россети Кубань», потенциальные клиенты</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Интервью и опросы целевых клиентов (Яндекс, VK, крупные операторы, интеграторы) по объёму и типам потребности:
+                  стойки, юниты, мощности в кВт, объём хранения по «закону Яровой», требования к SLA.</li>
+                <li>Сегментация спроса: 
+                  <em>операторы связи</em>, <em>облачные платформы</em>, <em>корпоративные клиенты</em>, <em>госсектор</em>.</li>
+                <li>Оценка потенциальной загрузки ЦОД: базовый сценарий, консервативный и агрессивный (по стойкам/кВт и объёму хранения).</li>
+                <li>Подписание писем о намерениях (LOI) и предварительных соглашений о резервировании мощности/стойко-мест.</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: пакет LOI/предварительных договорённостей с ключевыми клиентами,
+                прогноз загрузки ЦОД на горизонте 3–7 лет (по клиентским сегментам).
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 2 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 2. ТЭО и модель энергосервисного контракта (4–8 месяцев)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор</span>
+                <span class="stage-chip">Соисполнители: АО «Россети Кубань», консультанты</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Разработка технико-экономического обоснования (ТЭО) с учётом:
+                  CAPEX (строительство, инженерка, IT-оборудование хранилища), OPEX (энергия, эксплуатация, персонал).</li>
+                <li>Формирование финансово-экономической модели:
+                  выручка по видам услуг (colocation, хранение по «закону Яровой», IaaS, сетевые сервисы), сценарный анализ.</li>
+                <li>Проработка структуры энергосервисного контракта:
+                  распределение денежных потоков 20 % / 80 %, механика выплат, учёт в KPI по нетарифной выручке.</li>
+                <li>Предварительные корпоративные согласования (комитет по инвестициям, службы рисков, финансы).</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: утверждаемое ТЭО и проект энергосервисного контракта (ESPC) с инвестором,
+                подтверждение экономической эффективности и сроков окупаемости.
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 3 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 3. Проектирование и согласования (6–14 месяцев)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор (заказчик проектирования)</span>
+                <span class="stage-chip">Соисполнители: АО «Россети Кубань», органы власти, экспертизы</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Выбор площадки (на объекте 110 кВ или на территории склада/ПС) и оформление прав на землю/объект.</li>
+                <li>Разработка проектной и рабочей документации ЦОД: здание, электроснабжение 2×110 кВ, ИБП, ДГУ, охлаждение, СКС, физическая безопасность.</li>
+                <li>Согласование ТУ по электроснабжению и присоединению ЦОД к сетям АО «Россети Кубань».</li>
+                <li>Прохождение обязательных экспертиз (госэкспертиза, пожарная безопасность, промышленная безопасность и др.).</li>
+                <li>Подготовка проектных решений под уровень надёжности Tier III (резервирование по N+1, отказоустойчивость).</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: комплект проектной документации с положительными заключениями экспертиз и готовностью к началу строительства.
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 4 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 4. Строительство, монтаж инженерки и IT-инфраструктуры (12–24 месяца)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор</span>
+                <span class="stage-chip">Соисполнители: генподрядчик, АО «Россети Кубань»</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Строительство здания ЦОД (корпус, внутренние помещения, серверные залы, помещения ИБП и ДГУ, помещения хранения).</li>
+                <li>Монтаж электроустановок и схемы электроснабжения от линий 110 кВ, распределительных устройств, ИБП и ДГУ.</li>
+                <li>Установка систем охлаждения, автоматики, мониторинга, противопожарной защиты и физической безопасности.</li>
+                <li>Развёртывание стоек, СКС, сетевого оборудования, стораджей и серверов под «закон Яровой» и облачные сервисы.</li>
+                <li>Пуско-наладочные работы, комплексное опробование, тестирование отказоустойчивости по сценариям.</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: физически построенный и испытанный ЦОД, готовый к приёмке, подключению клиентов и прохождению сертификаций.
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 5 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 5. Лицензирование и нормативное соответствие (параллельно с Этапами 3–4)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор</span>
+                <span class="stage-chip">Соисполнители: АО «Россети Кубань», регуляторы</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Подготовка и получение лицензий и разрешений:
+                  Роскомнадзор, ФСТЭК, ФСБ и др. (в зависимости от перечня оказываемых услуг и хранимых данных).</li>
+                <li>Внедрение систем информационной безопасности и СОУТ в части персональных данных и трафика по «закону Яровой».</li>
+                <li>Прохождение аудитов и инспекций, приведение внутренней документации (политики, регламенты, инструкции) в соответствие требованиям.</li>
+                <li>Формирование пакета правовых документов для клиентов ЦОД (договора оказания услуг, SLA, политики безопасности).</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: ЦОД с полным комплектом лицензий и регламентов, допускающих хранение и обработку данных по «закону Яровой» и оказание облачных услуг.
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 6 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 6. Коммерческий запуск и выход на проектную загрузку (после готовности ЦОД)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор</span>
+                <span class="stage-chip">Соисполнители: АО «Россети Кубань», ключевые клиенты</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Перевод LOI и предварительных соглашений в полноценные долгосрочные договоры с клиентами (Яндекс, VK, операторы связи и др.).</li>
+                <li>Физическое размещение оборудования клиентов (colocation) и миграция сервисов в ЦОД.</li>
+                <li>Запуск сервисов хранения данных по «закону Яровой» для операторов связи и иных обязанных лиц.</li>
+                <li>Запуск дополнительных услуг: IaaS, резервные площадки (DRP), сетевые сервисы, удалённые руки.</li>
+                <li>Мониторинг загрузки мощностей, корректировка тарифов и маркетинговой стратегии для достижения целевой выручки.</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: ЦОД в промышленной эксплуатации с растущей загрузкой и поступлением выручки по энергосервисному контракту (20 % / 80 %).
+              </p>
+            </div>
+          </article>
+
+          <!-- Этап 7 -->
+          <article class="stage">
+            <div class="stage-header">
+              <div class="stage-title">Этап 7. Масштабирование и оптимизация (после выхода на стабильную загрузку)</div>
+              <div class="stage-meta">
+                <span class="stage-chip">Ответственный: Инвестор, АО «Россети Кубань»</span>
+              </div>
+            </div>
+            <div class="stage-body">
+              <ul>
+                <li>Оценка возможности расширения мощности ЦОД (дополнительные залы, увеличение IT-нагрузки сверх 1,5 МВт).</li>
+                <li>Оптимизация энергопотребления и PUE, внедрение дополнительных энергосервисных решений.</li>
+                <li>Расширение продуктовой линейки услуг ЦОД в части аналитики, специальных сервисов под госсектор и крупных клиентов.</li>
+                <li>Обновление финансовой модели, коррекция параметров энергосервисного контракта на основе фактических данных.</li>
+              </ul>
+              <p class="stage-highlight">
+                Выход: устойчиво работающий ЦОД с потенциалом масштабирования и устойчивым денежным потоком для АО «Россети Кубань» и инвестора.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Критические вехи и зависимости -->
+      <section class="section">
+        <div class="section-title">
+          <span>Критические вехи и зависимости</span>
+          <span class="badge">Контроль исполнения</span>
+        </div>
+        <p>
+          Для управления проектом необходимо выделить набор вех, по которым удобно контролировать готовность
+          и принимать решения на уровне топ-менеджмента и инвестора.
+        </p>
+
+        <div class="phase-group-title">Ключевые вехи</div>
+        <div class="list">
+          <div class="list-item">Подписанная концепция проекта и решение о запуске (Этап 0).</div>
+          <div class="list-item">Пакет LOI/предварительных договоров с якорными клиентами (Этап 1).</div>
+          <div class="list-item">Утверждённое ТЭО и модель энергосервисного контракта (Этап 2).</div>
+          <div class="list-item">Положительные экспертизы по проектной документации (Этап 3).</div>
+          <div class="list-item">Завершение строительства и комплексного опробования (Этап 4).</div>
+          <div class="list-item">Получение ключевых лицензий и разрешений (Этап 5).</div>
+          <div class="list-item">Подписание основных коммерческих договоров и запуск выручки (Этап 6).</div>
+        </div>
+
+        <div class="phase-group-title" style="margin-top: 14px;">Основные зависимости</div>
+        <p style="margin-top: 4px;">
+          Для наглядности роли сторон по проекту можно условно разложить следующим образом:
+        </p>
+        <div style="margin-top: 6px;">
+          <span class="pill">
+            <span class="pill-dot"></span>
+            <span>АО «Россети Кубань» — площадка, электрические сети, участие в ESPC, KPI по нетарифной выручке</span>
+          </span>
+          <span class="pill">
+            <span class="pill-dot"></span>
+            <span>Инвестор — финансирование, строительство, управление ЦОД и клиентскими контрактами</span>
+          </span>
+          <span class="pill">
+            <span class="pill-dot"></span>
+            <span>Клиенты — спрос на стойки, кВт и объём хранения данных по «закону Яровой»</span>
+          </span>
+        </div>
+      </section>
+
+      <!-- Ссылки на другие разделы -->
+      <section class="section">
+        <div class="section-title">
+          <span>Переход к связанным разделам</span>
+        </div>
+        <p>
+          Дорожная карта опирается на финансово-экономическую модель и набор требований к ЦОД.
+          Подробности — в отдельных разделах:
+        </p>
+        <div class="list">
+          <div class="list-item">
+            <a href="business-plan.html" style="color:#7dd3fc; text-decoration:none; border-bottom:1px dashed rgba(125,211,252,0.7);">
+              Бизнес-план и финансовая модель ЦОД
+            </a>
+          </div>
+          <div class="list-item">
+            <a href="requirements.html" style="color:#7dd3fc; text-decoration:none; border-bottom:1px dashed rgba(125,211,252,0.7);">
+              Технические и регуляторные требования к ЦОД
+            </a>
+          </div>
+          <div class="list-item">
+            <a href="pricing.html" style="color:#7dd3fc; text-decoration:none; border-bottom:1px dashed rgba(125,211,252,0.7);">
+              Услуги и тарифы ЦОД
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2025 АО «Россети Кубань». Дорожная карта проекта коммерческого ЦОД.
+    </footer>
+  </div>
+
+  <script>
+    // Кнопка "Наверх"
+    (function () {
+      const fabTop = document.getElementById("fab-top");
+
+      function onScroll() {
+        if (window.scrollY > 200) {
+          fabTop.classList.add("show");
+        } else {
+          fabTop.classList.remove("show");
+        }
+      }
+
+      window.addEventListener("scroll", onScroll);
+
+      fabTop.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
